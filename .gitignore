@@ -1,4 +1,4 @@
-# See https://help.github.com/ignore-files/ for more about ignoring files.
+# See http://help.github.com/ignore-files/ for more about ignoring files.
 
 # compiled output
 /dist
@@ -11,7 +11,15 @@
 # misc
 /.sass-cache
 /connect.lock
+/dist/index.html
 /coverage/*
 /libpeerconnection.log
-npm-debug.log*
+npm-debug.log
 testem.log
+.idea
+deploy.sh
+deploy-development.sh
+deploy-production.sh
+deploy-all.sh
+coverage.json
+lcov.info

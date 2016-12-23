@@ -1,6 +1,7 @@
 /*jshint node:true*/
 /* global require, module */
 var EmberApp = require('ember-cli/lib/broccoli/ember-app');
+var Funnel = require('broccoli-funnel');
 
 module.exports = function(defaults) {
   var app = new EmberApp(defaults, {
@@ -20,5 +21,35 @@ module.exports = function(defaults) {
   // please specify an object with the list of modules as keys
   // along with the exports of each module as its value.
 
-  return app.toTree();
+  app.import('bower_components/babel-polyfill/browser-polyfill.js', {
+    prepend: true
+  });
+
+  //CSS
+  app.import('bower_components/bootstrap/dist/css/bootstrap.min.css');
+  app.import({
+    development: 'bower_components/font-awesome/css/font-awesome.css',
+    production: 'bower_components/font-awesome/css/font-awesome.min.css'
+  });
+
+  //Fonts
+  var fontAwesomeFonts = new Funnel(app.bowerDirectory + '/font-awesome', {
+    srcDir: '/fonts',
+    include: ['**/*.woff', '**/*.eot', '**/*.svg', '**/*.ttf', '**/*.woff2'],
+    destDir: '/fonts'
+  });
+
+  //JS
+  app.import('bower_components/bootstrap/js/dist/util.js');
+  app.import('bower_components/bootstrap/js/dist/alert.js');
+  app.import('bower_components/bootstrap/js/dist/dropdown.js');
+  app.import('bower_components/bootstrap/js/dist/tab.js');
+  app.import('bower_components/lodash/dist/lodash.min.js');
+  app.import('vendor/shims/lodash.js', {
+    exports: {
+      'lodash': ['default']
+    }
+  });
+
+  return app.toTree(fontAwesomeFonts);
 };

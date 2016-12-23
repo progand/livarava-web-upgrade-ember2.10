@@ -2,6 +2,10 @@
   "name": "livarava-neuroner-mockups",
   "dependencies": {
     "ember": "~2.10.0",
-    "ember-cli-shims": "0.1.3"
+    "ember-cli-shims": "0.1.3",
+    "bootstrap": "4.0.0-alpha.2",
+    "lodash": "4.*",
+    "babel-polyfill": "^0.0.1",
+    "font-awesome": "^4.7.0"
   }
 }
