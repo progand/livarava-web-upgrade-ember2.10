@@ -1,5 +1,5 @@
 {{yield}}
 
-{{#power-select-typeahead selected=project search=(action "searchNeurons") oninput=(action "skipShortSearches") onchange=(action (mut project)) extra=(hash labelPath="title" ) as |project|}}
+{{#power-select selected=project search=(action "searchNeurons") oninput=(action "skipShortSearches") onchange=(action (mut project)) extra=(hash labelPath="title" ) as |project|}}
   {{project.title}}
-{{/power-select-typeahead}}
+{{/power-select}}

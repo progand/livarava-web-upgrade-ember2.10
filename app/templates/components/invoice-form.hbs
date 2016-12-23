@@ -48,10 +48,10 @@
       {{#if (or isProjectLoadings (and (not model.isNew) (not model.project.isLoaded)))}}
         <p class="form-control-static text-info ">Loading project details...</p>
       {{/if}}
-      {{#power-select-typeahead class=(if (or isProjectLoadings (and (not model.isNew) (not model.project.isLoaded))) "hidden") placeholder="Attach to project" selected=model.project search=(action "searchNeurons") oninput=(action "skipShortSearches") onchange=(action
+      {{#power-select class=(if (or isProjectLoadings (and (not model.isNew) (not model.project.isLoaded))) "hidden") placeholder="Attach to project" selected=model.project search=(action "searchNeurons") oninput=(action "skipShortSearches") onchange=(action
           "setProject") extra=(hash labelPath="title" ) as |project|}}
         <i class="fa fa-university"></i>{{project.title}}
-      {{/power-select-typeahead}}
+      {{/power-select}}
 
       <p class="form-text text-muted">
         Select project from autocomplete. Beware that some requests take time to complete so, please, be patient)
