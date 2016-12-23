@@ -1,0 +1,24 @@
+<div class="text-xs-right m-b-1">
+  {{#link-to "neuroner.new-rssfeed" class="btn btn-primary"}}<i class="fa fa-plus"></i> New Feed{{/link-to}}
+</div>
+
+<h4>Available feeds</h4>
+{{#if model}}
+  <div class="list-group">
+    {{#each model as |item|}} {{#if item.id}}
+      {{#link-to "neuroner.rssfeed" item.id class="list-group-item"}}
+        <span class="pull-xs-right {{if item.active 'text-success' 'text-muted'}}"><i class="fa fa-circle"></i></span>
+        <h5 class="list-group-item-heading">{{item.title}}</h5>
+        <p class="list-group-item-text">
+          {{item.url}}
+        </p>
+      {{/link-to}}
+    {{/if}}
+    {{/each}}
+  </div>
+  {{infinity-loader infinityModel=model loadingText="Loading..." loadedText="The End"}}
+{{else}}
+  <p class="card-text alert alert-info">You have no feeds for now.</p>
+{{/if}}
+
+{{outlet}}

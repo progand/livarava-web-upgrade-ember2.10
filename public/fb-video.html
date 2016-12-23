@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <style>
+    html, body, div{
+      margin: 0;
+      padding: 0;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Your send button code -->
+<div id="container" class="fb-video" data-href=""></div>
+
+<script>
+  (function (d, w) {
+    var videoURL = w.location.search.split('=')[1];
+    d.getElementById('container').dataset.href = videoURL;
+  }(document, window));
+</script>
+
+<!-- Load Facebook SDK for JavaScript -->
+<div id="fb-root"></div>
+<script>(function (d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s);
+  js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.3";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
+</script>
+
+</body>
+</html>

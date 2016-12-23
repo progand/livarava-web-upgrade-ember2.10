@@ -1,0 +1,11 @@
+<h1>Create new neuron</h1>
+
+<form {{action "create" on="submit"}} class="form-inline">
+    <div class="form-group">
+        <label>Text or URL:</label>
+      {{input  type="text" class="form-control" placeholder="Enter text or url" value=title}}
+    </div>
+    <button type="submit" class="btn btn-primary">Create</button>
+</form>
+
+{{outlet}}

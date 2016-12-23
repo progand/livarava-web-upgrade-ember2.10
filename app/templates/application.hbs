@@ -1,0 +1,23 @@
+{{loading-slider isLoading=loading duration=15}}
+
+{{#if model}}
+
+  {{top-nav model=model}}
+  {{#main-content}}{{outlet}}{{/main-content}}
+
+{{else}}
+
+  <div class="container m-t-2 m-b-3">
+    <h4 class="text-muted">You're not authorized</h4>
+    <p>Here what you can do:</p>
+    <ol>
+      <li>Try to <a href="/signin/?next=ui/">sign in</a></li>
+      <li>If you're sighed in, maybe the page you're looking for <span class="text-info">does not exists</span></li>
+      <li>If you suspect a <span class="label label-danger">bug</span>, than please, <a href="/feedback">submit it</a></li>
+      <li>You can always <a href="/feedback">suggest improvements</a> for LivaRava</li>
+    </ol>
+  </div>
+
+{{/if}}
+
+{{bottom-nav}}

@@ -1,0 +1,9 @@
+{{yield}}
+{{#power-select-typeahead class="text-muted" placeholder="Search neurons"
+  allowClear=true
+  selected=selectedAutocompleteNeuron search=(action "searchNeurons") oninput=(action "skipShortSearches")
+  onchange=(action "setAutocompleteNeuron") extra=(hash labelPath="title") as |autocompleteNeuron|}}
+  {{autocompleteNeuron.title}}
+  <br>
+  <span class="label label-info">{{autocompleteNeuron.type}}</span>
+{{/power-select-typeahead}}

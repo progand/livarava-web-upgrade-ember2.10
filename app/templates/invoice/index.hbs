@@ -1,0 +1,49 @@
+<h2>Invoices</h2>
+
+<div class="text-xs-right m-b-1">
+  {{#link-to "invoice.new" class="btn btn-primary" }}<i class="fa fa-plus"></i> New Invoice{{/link-to}}
+</div>
+
+{{#if model.length}}
+  <div class="alert alert-success">Nearby <strong>{{model.meta.total_results}} invoices</strong> was found</div>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Customer</th>
+        <th>Amount</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each model as |item|}}
+        <tr>
+          <td>
+            {{#link-to "invoice.edit" item.id}}
+              {{item.title}}
+            {{/link-to}}
+          </td>
+          <td>{{item.customer}}</td>
+          <td class="text-xs-right text-nowrap">{{format-currency item.amount 2 " " " "}} <code>{{item.currency}}</code></td>
+          <td title="{{item.status}}">
+            {{#if (eq item.status "payed")}}
+              <i class="fa fa-check-square-o text-success"></i>
+            {{else}}
+              <i class="fa fa-square-o text-muted"></i>
+            {{/if}}
+          </td>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+
+  <nav>
+    {{#pagination-pager count=model.meta.total_pages current=page pager=true pagerPrevious='<span class="fa fa-backward"></span>' pagerNext='<span class="fa fa-forward"></span>' pagerFirst='<span class="fa fa-step-backward"></span>' pagerLast='<span class="fa fa-step-forward"></span>'
+        }}
+      Page {{page}} of {{model.meta.total_pages}}
+    {{/pagination-pager}}
+  </nav>
+{{else}}
+  <div class="alert alert-info">No invoices was found</div>
+{{/if}}
+{{outlet}}

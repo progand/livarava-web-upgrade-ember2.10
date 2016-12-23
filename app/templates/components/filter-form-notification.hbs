@@ -1,0 +1,23 @@
+{{yield}}
+
+<div class="form-group col-xs-12 col-sm-4 col-md-2">
+	<button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		{{typeLabel}}
+	</button>
+	<div class="dropdown-menu">
+		{{#each-in types as |kind notifications|}}
+			<button class="dropdown-item" {{action 'change' 'kind' kind}}>{{notifications.title}}</button>
+		{{/each-in}}
+	</div>
+</div>
+<div class="form-group col-xs-12 col-sm-6 col-md-8">
+	{{#if (eq notifications.kind "slack")}}
+		{{input type="url" class="form-control" value=notifications.destination required=true placeholder="Enter hook URL..."}}
+	{{else}}
+		{{input type="email" class="form-control" value=notifications.destination required=true placeholder="Enter email..."}}
+	{{/if}}
+</div>
+<div class="form-group col-xs-12 col-sm-2 text-xs-right">
+	<button class="btn btn-secondary" {{action 'remove' notifications}}>
+		<i class="fa fa-times" aria-hidden="true"></i></button>
+</div>

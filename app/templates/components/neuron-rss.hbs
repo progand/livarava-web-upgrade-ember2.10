@@ -1,0 +1,19 @@
+<h4>RSS Feed</h4>
+
+<form class="">
+    <fieldset class="form-group">
+      {{input type="text" class="form-control input-filter-neuron" placeholder="Keyword" value=filter}}
+    </fieldset>
+</form>
+
+{{#each visibleItems as |rssFeedItem|}}
+  {{neuron-rss-item item=rssFeedItem filter=filter}}
+{{/each}}
+
+{{#if hasMore}}
+    <div class="m-t-2">
+        <button class="btn btn-primary center-block" {{action "showMore"}}>More</button>
+    </div>
+{{/if}}
+
+{{yield}}

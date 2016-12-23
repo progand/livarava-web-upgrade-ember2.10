@@ -1,0 +1,87 @@
+{{yield}}
+<h2>{{#if model.id}}Edit{{else}}New{{/if}} Filter</h2> {{form-messages model=model}}
+
+<form class="m-b-3" {{action 'save' on="submit"}}>
+
+  <div class="form-inline form-group">
+    <div class="form-group">
+      {{input type="text" class="form-control" value=model.label placeholder="Enter title" required=true}}
+    </div>
+  </div>
+
+  <hr class="m-b-2">
+
+  <h4>Rules</h4>
+
+  <fieldset class="form-group">
+    <div class="btn-group" role="group" aria-label="Basic example">
+      <button type="button" class="btn {{if (eq model.kind "all") "btn-success" "btn-secondary-outline"}}" {{action "setAll" "all"}}>All</button>
+      <button type="button" class="btn {{unless (eq model.kind "all") "btn-success" "btn-secondary-outline"}}" {{action "setAll" "any"}}>Any</button>
+    </div>
+  </fieldset>
+
+  {{#if model.rules.length}}
+    <div class="alert alert-info">
+      Article has to pass
+      <strong>{{#if (eq model.kind "all")}} all {{else}} any of the {{/if}}</strong> following rules:
+    </div>
+  {{else}}
+    <div class="alert alert-success">
+      All news included if empty
+    </div>
+  {{/if}}
+
+  {{#each model.rules as |item|}}
+    {{filter-list-item deleteRule="deleteRule" rule=item}}
+  {{/each}}
+
+  <div class="form-group">
+    <button class="btn btn-success" {{action 'addRule'}}><i class="fa fa-plus"></i> Add</button>
+  </div>
+
+  <hr class="m-b-2">
+
+  <h4>Feeds</h4>
+
+  <div class="form-group">
+    {{#power-select-multiple search=(action "searchFeeds") selected=model.feeds onchange=(action (mut model.feeds)) as |feed| }}
+      {{feed.url}}
+    {{/power-select-multiple}}
+    <small class="{{if model.feeds.length "text-muted" "text-success"}}">
+      All feeds included if empty
+    </small>
+  </div>
+
+  {{#each model.group as |item|}}
+    {{filter-form-group-item group=item}}
+  {{/each}}
+
+  <hr class="m-b-2">
+
+  <h4>Notifications</h4>
+
+  <!-- block notifications -->
+  {{#each model.notifications as |item|}}
+    {{filter-form-notification deleteNotifi=(action "deleteNotification") notifications=item}}
+  {{/each}}
+
+  <div class="form-group">
+    <button class="btn btn-success" {{action "addNotification"}}><i class="fa fa-plus"></i> Add</button>
+  </div>
+
+  <hr class="m-b-2">
+  <div class="form-group">
+    <button class="btn btn-primary {{if model.isSaving "disabled"}}" type="summit">
+      {{#if model.isSaving}}
+        <i class="fa fa-spinner fa-spin"></i> Please, wait...
+      {{else}}
+        <i class="fa fa-save"></i> Save
+      {{/if}}
+    </button>
+    <button class="btn btn-primary-outline" type="reset"><i class="fa fa-ban"></i> Reset</button>
+    {{#if model.id}}
+      <button class="btn btn-danger pull-sm-right {{if model.isSaving "disabled"}}" type="button" {{action "delete" model}}><i class="fa fa-trash-o"></i> Delete</button>
+    {{/if}}
+  </div>
+
+</form>

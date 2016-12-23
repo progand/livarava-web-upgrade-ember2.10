@@ -1,0 +1,126 @@
+{{yield}}
+<h2>{{#if model.id}}Edit{{else}}New{{/if}} Invoice</h2> {{form-messages model=model}}
+
+<form class="m-b-3 m-t-1" {{action 'save' on="submit"}}>
+
+  <fieldset class="form-group row">
+    <label class="text-uppercase col-sm-3">seller</label>
+    <div class="btn-group col-sm-9">
+      <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        {{if model.seller model.seller "Please select..."}}
+      </button>
+      <div class="dropdown-menu">
+        {{#each-in sellers as |seller title|}}
+          <button class="dropdown-item {{if (eq seller model.seller) 'active'}}" {{action 'change' 'model.seller' seller}}>{{title}}</button>
+        {{/each-in}}
+      </div>
+    </div>
+  </fieldset>
+
+  <fieldset class="form-group row">
+    <label class="text-uppercase col-sm-3">client</label>
+    <div class="col-sm-9">
+      {{input type="text" name="customer" class="form-control" value=model.customer placeholder="Livarava International Ltd." required=true}}
+    </div>
+  </fieldset>
+
+  <fieldset class="form-group row">
+    <div class="col-sm-9 col-sm-offset-3">
+      {{input type="text" name="address" class="form-control" value=model.address placeholder="Vesetas 7, Riga, Latvia" required=true}}
+    </div>
+  </fieldset>
+
+  <fieldset class="form-group row">
+    <div class="col-sm-9 col-sm-offset-3">
+      {{input type="text" name="phone" class="form-control" value=model.phone placeholder="+380 (67) 937-45-41" required=true}}
+    </div>
+  </fieldset>
+
+  <fieldset class="form-group row">
+    <div class="col-sm-9 col-sm-offset-3">
+      {{input type="email" name="email" class="form-control" value=model.email placeholder="billing@livarava.com" required=true}}
+    </div>
+  </fieldset>
+
+  <fieldset class="form-group row">
+    <label class="text-uppercase col-sm-3">project</label>
+    <div class="col-sm-9">
+      {{#if (or isProjectLoadings (and (not model.isNew) (not model.project.isLoaded)))}}
+        <p class="form-control-static text-info ">Loading project details...</p>
+      {{/if}}
+      {{#power-select-typeahead class=(if (or isProjectLoadings (and (not model.isNew) (not model.project.isLoaded))) "hidden") placeholder="Attach to project" selected=model.project search=(action "searchNeurons") oninput=(action "skipShortSearches") onchange=(action
+          "setProject") extra=(hash labelPath="title" ) as |project|}}
+        <i class="fa fa-university"></i>{{project.title}}
+      {{/power-select-typeahead}}
+
+      <p class="form-text text-muted">
+        Select project from autocomplete. Beware that some requests take time to complete so, please, be patient)
+      </p>
+    </div>
+  </fieldset>
+
+  {{#if model.lines.length}}
+    <div class="alert alert-info">
+      List of payment details:
+    </div>
+  {{else}}
+    <div class="alert alert-warning">
+      Please, add payment details
+    </div>
+  {{/if}}
+
+  {{#each model.lines as |line index|}}
+    <fieldset class="form-group row">
+      <div class="col-xs-12 col-sm-7 col-md-8 col-lg-9">
+        {{textarea class="form-control m-b-1" value=line.description required=true placeholder="Service or product"}}
+      </div>
+      <div class="col-xs-12 col-sm-5 col-md-4 col-lg-3">
+        <div class="input-group m-b-1">
+          <div class="input-group-addon">{{get (get currencies model.currency) "sign"}}</div>
+          {{input type="number" step="0.01" class="form-control" value=line.price required=true placeholder="000.00" title="use dot for fraction"}}
+          <div class="input-group-btn">
+            <button class="btn btn-secondary" {{action 'deleteLine' line}} title="Remove line">
+              <i class="fa fa-times" aria-hidden="true"></i>
+              <span class="hidden-sm-up">Remove</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </fieldset>
+  {{/each}}
+
+  <div class="form-group row">
+    <div class="col-sm-3">
+      <button class="btn btn-success" {{action 'addLine'}}><i class="fa fa-plus"></i> Add</button>
+    </div>
+    <div class="col-sm-9 lead text-sm-right">
+      <span>Total:</span>
+      <span class="text-success">{{format-number (if model.amount model.amount 0) format="0,0.00"}}</span>
+      <div class="btn-group text-success">
+        <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          {{if model.currency model.currency "Select currency..."}}
+        </button>
+        <div class="dropdown-menu dropdown-menu-right">
+          {{#each-in currencies as |code currency|}}
+            <button class="dropdown-item {{if (eq code model.currency) 'active'}}" {{action 'change' 'model.currency' code}}>{{currency.title}}</button>
+          {{/each-in}}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="m-b-2">
+  <div class="form-group">
+    <button class="btn btn-primary {{if model.isSaving "disabled"}}" type="summit">
+      {{#if model.isSaving}}
+        <i class="fa fa-spinner fa-spin"></i> Please, wait...
+      {{else}}
+        <i class="fa fa-save"></i> Save
+      {{/if}}
+    </button>
+    {{#if model.id}}
+      <button class="btn btn-danger pull-sm-right {{if model.isSaving "disabled"}}" type="button" {{action "delete" model}}><i class="fa fa-trash-o"></i> Delete</button>
+    {{/if}}
+  </div>
+
+</form>

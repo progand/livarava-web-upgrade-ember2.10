@@ -1,0 +1,17 @@
+<h4>All News</h4>
+
+<form class="m-b-2" {{action "submit" data on="submit"}}>
+  <div class="form-group">
+    <label>Filter:</label>
+    {{input value=data.fulltext class="form-control" }}
+  </div>
+  <div class="form-group">
+    <label>From:</label>
+    {{bs-datetimepicker date=data.from format='DD.MM.YYYY HH:mm' dateIcon="fa fa-calendar" icons=icons updateDate=(action (mut data.from))}}
+  </div>
+  <button type="submit" class="btn btn-primary {{unless data.fulltext (unless data.from 'disabled')}}">Find!</button>
+</form>
+
+{{rssitems-infinite-scroll store=store model=model action='infinityLoad'}}
+
+{{outlet}}

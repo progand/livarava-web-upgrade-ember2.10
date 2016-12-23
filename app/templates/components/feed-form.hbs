@@ -1,0 +1,114 @@
+{{yield}}
+
+<ul class="nav nav-pills m-b-1 pull-sm-right">
+  <li class="nav-item">
+    <a {{action "setPreview" false}} class="nav-link {{unless preview "active"}}" title="Edit form" href=""><i class="fa fa-sliders"></i> Settings</a>
+  </li>
+  <li class="nav-item">
+    <a {{action "setPreview" true}} class="nav-link {{if preview "active"}}" title="See preview results" href=""><i class="fa fa-eye"></i> Preview</a>
+  </li>
+</ul>
+
+<h2 class="m-b-3">{{#if model.id}}Edit{{else}}New{{/if}} Feed</h2> {{form-messages model=model}}
+
+{{#unless preview}}
+  <form {{action 'save' on="submit"}}>
+
+    <div class="form-group">
+      <fieldset class="form-group">
+        <div class="">
+          <label>URL</label> {{input type="url" class="form-control" value=model.url placeholder="Enter url..." required=true}}
+          <small class="text-muted">
+          Enter actual rss feed's URL
+        </small>
+        </div>
+      </fieldset>
+
+      {{#if model.rules.length}}
+        <div class="alert alert-info">
+          Article has to pass
+          <strong>{{#if (eq model.kind "all")}} all {{else}} any of the {{/if}}</strong> following rules:
+        </div>
+      {{else}}
+        <div class="alert alert-success">
+          All news included if empty
+        </div>
+      {{/if}}
+
+      {{#each model.rules as |item|}}
+        {{feed-list-item deleteRule="deleteRule" rule=item}}
+        <hr/>
+      {{/each}}
+
+      <div class="form-group">
+        <button class="btn btn-success" {{action 'addRule'}}><i class="fa fa-plus"></i> Add</button>
+      </div>
+
+    </div>
+
+    <hr class="m-b-2">
+    <div class="form-group">
+      <button class="btn btn-primary {{if model.isSaving "disabled"}}" type="summit">
+        {{#if model.isSaving}}
+          <i class="fa fa-spinner fa-spin"></i> Please, wait...
+        {{else}}
+          <i class="fa fa-save"></i> Save
+        {{/if}}
+      </button>
+      <button class="btn btn-primary-outline" type="reset"><i class="fa fa-ban"></i> Reset</button>
+      {{#if model.id}}
+        <button class="btn btn-danger pull-sm-right {{if model.isSaving "disabled"}}" type="button" {{action "delete" model}}><i class="fa fa-trash-o"></i> Delete</button>
+      {{/if}}
+    </div>
+
+  </form>
+{{/unless}}
+
+{{#if preview}}
+
+  {{#if article}}
+    {{#if article.loading}}
+      <div class="alert alert-info">Article <code>{{article.url}}</code> is loading...</div>
+    {{/if}}
+    {{#if article.error}}
+      <div class="alert alert-danger">An error occured! Unable to fetch article <code>{{article.url}}</code></div>
+    {{/if}}
+    {{#if article.success}}
+      {{#if article.content.length}}
+        <button class="btn btn-secondary pull-right" type="button" {{action "loadArticle"}}><i class="fa fa-ban"></i> Close</button>
+        <h4>{{article.title}}</h4>
+        <a href="{{article.url}}" target="_blank">
+          <i class="fa fa-external-link"></i> {{article.url}}
+        </a>
+        <div class="m-b-3 p-a-1 article-preview">{{{article.content}}}</div>
+      {{else}}
+        <div class="alert alert-warning">Unable to parse article <code>{{article.url}}</code></div>
+      {{/if}}
+    {{/if}}
+  {{/if}}
+
+  {{#if previews.loading}}
+    <div class="alert alert-info">Feed is loading...</div>
+  {{/if}}
+  {{#if previews.error}}
+    <div class="alert alert-danger">An error occured! Unable to fetch the feed.</div>
+  {{/if}}
+  {{#if previews.success}}
+    {{#if previews.items.length}}
+      <h4>Parsed {{previews.items.length}} articles</h4>
+      {{#each previews.items as |item|}}
+        <p class="">
+          <a href="{{item.url}}" {{action "loadArticle" item}}>
+            <strong><i class="fa fa-eye"></i> {{item.title}}</strong>
+          </a>
+          <br/>
+          <a href="{{item.url}}" target="_blank" class="text-muted">
+            <i class="fa fa-external-link"></i> {{truncate item.url length=60 separator=''}}
+          </a>
+        </p>
+      {{/each}}
+    {{else}}
+      <div class="alert alert-warning">Unable to parse feed <code>{{model.url}}</code></div>
+    {{/if}}
+  {{/if}}
+{{/if}}

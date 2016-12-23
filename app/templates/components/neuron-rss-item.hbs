@@ -1,0 +1,38 @@
+<div class="media-left">
+  {{#link-to "neuron" item.id}}
+      <img class="media-object feed-item-image"
+           src="{{if item.image item.image 'https://www.livarava.com/static/livarava/img/neurons/link.png'}}"
+           alt="{{item.title}}"/>
+  {{/link-to}}
+</div>
+
+<div class="media-body">
+    <h5 class="media-heading ">
+      {{#link-to "neuron" item.id}}{{{title}}}{{/link-to}}
+    </h5>
+
+    <a href="{{externalURL}}" target="_blank" class="text-success">{{truncate item.url length=60 separator=''}}</a>
+
+    <div class="m-b-1">
+      {{#if expanded}}
+        {{{text}}}
+          <div><a href="" {{action (toggle "expanded" this)}}>...Less</a></div>
+      {{else}}
+        {{{truncate text length=150 striptags=true}}}
+          <div><a href="" {{action (toggle "expanded" this)}}>Read more</a></div>
+
+      {{/if}}
+    </div>
+
+    <ul class="list-inline">
+      {{# if item.date}}
+          <li class="list-inline-item text-muted" title="Published">
+              <i class="fa fa-calendar-check-o"></i> {{moment-format item.date 'DD.MM.YYYY HH:mm'}}
+              <span class="label label-info">{{moment-from-now item.date}}</span></li>
+          <li class="list-inline-item">
+            {{send-neuron-on-email neuronId=item.id store=store filterId=filter.id}}
+          </li>
+      {{/if}}
+    </ul>
+
+</div>

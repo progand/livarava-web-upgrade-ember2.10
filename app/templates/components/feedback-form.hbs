@@ -1,0 +1,40 @@
+{{yield}}
+
+{{#unless model.isNew}}
+  <div class="alert alert-success">Saved!</div>
+{{/unless}}
+
+<form class="m-b-3 m-t-1" {{action 'save' model on="submit"}}>
+
+  <fieldset class="form-group row">
+    <label class="col-sm-3">Subject</label>
+    <div class="btn-group col-sm-9">
+      <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        {{if model.subject (get subjects model.subject) "Please select..."}}
+      </button>
+      <div class="dropdown-menu">
+        {{#each-in subjects as |subjectId title|}}
+          <button class="dropdown-item" {{action 'change' model 'subject' subjectId}}>{{title}}</button>
+        {{/each-in}}
+      </div>
+    </div>
+  </fieldset>
+
+  <fieldset class="form-group row">
+    <label class="col-sm-3">How can we help you?</label>
+    <div class="col-sm-9">
+      {{textarea name="text" rows="6" class="form-control" value=model.text placeholder="How can we help you?" required=true}}
+    </div>
+  </fieldset>
+
+  <div class="form-group text-sm-right">
+    <button class="btn btn-primary {{if model.isSaving "disabled"}}" type="submit">
+      {{#if model.isSaving}}
+        <i class="fa fa-spinner fa-spin"></i> Please, wait...
+      {{else}}
+        <i class="fa fa-save"></i> Save
+      {{/if}}
+    </button>
+  </div>
+
+</form>

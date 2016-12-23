@@ -1,0 +1,12 @@
+<div class="clearfix">
+    <div class="m-b-1">
+        <i class="fa fa-clock-o icon-event pull-left icon-event-date"></i>
+        <span class="block-event-date text-muted">
+          {{moment-format model.startdate "YYYY-MM-DD, HH:mm Z"}}<br/>
+          {{moment-format model.enddate "YYYY-MM-DD, HH:mm Z"}}
+        </span>
+    </div>
+    <div class="m-b-1"><i class="fa fa-map-marker icon-event"></i><span class="text-muted">{{model.location}}</span></div>
+    <div class="m-b-1"><i class="fa fa-eye icon-event"></i><span class="label label-info">{{model.type_location}}</span></div>
+    <div class="m-b-1 {{unless model.price 'text-success' 'text-primary'}}"><i class="fa fa-money icon-event"></i><span>{{getPrice}}</span></div>
+</div>

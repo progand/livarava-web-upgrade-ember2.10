@@ -1,0 +1,7 @@
+<h2 class="m-b-1">{{title}}
+  <button class="btn btn-link" {{action "toggle"}}><i class="fa fa-cog"></i></button>
+</h2>
+{{#if expanded}}
+  {{yield}}
+{{/if}}
+

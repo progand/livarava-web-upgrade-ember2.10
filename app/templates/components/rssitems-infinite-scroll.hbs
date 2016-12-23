@@ -1,0 +1,13 @@
+{{#if model.length}}
+  {{#if model.meta.total_results}}
+    <div class="alert alert-success">Nearby <strong>{{model.meta.total_results}} results</strong> was found</div>
+  {{/if}}
+  {{#each model as |item|}}
+    {{neuron-rss-item item=item store=store filter=filter}}
+  {{/each}}
+  {{infinity-loader infinityModel=model loadingText="Loading..." loadedText="The End"}}
+{{else}}
+  <div class="alert alert-info">Nothing was found</div>
+{{/if}}
+
+{{yield}}

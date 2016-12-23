@@ -1,0 +1,24 @@
+<article class="container m-t-2 m-b-3">
+    <div class="{{if isOpen 'col-md-8' 'col-md-12' }}">
+      {{outlet}}
+    </div>
+
+  {{#if isOpen}}
+      <div class="col-md-4">
+          <div class="clearfix">
+              <button type="button" class="close" aria-label="Close" {{action (toggle "isOpen" this)}}>
+                  <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+
+          <div class="bg-faded text-center p-a-3 m-b-1">Google Ad</div>
+          <div class="bg-success text-center p-a-3 m-b-1">Suggestions</div>
+          <div class="bg-info text-center p-a-3 m-b-1">Other info</div>
+      </div>
+  {{/if}}
+
+  {{#unless isOpen}}
+    <button type="button" class="btn btn-info btn-sm btn-show-advertisement fa fa-arrows-h" {{action (toggle "isOpen" this)}}></button>
+  {{/unless}}
+
+</article>

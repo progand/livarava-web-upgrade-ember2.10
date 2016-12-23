@@ -1,0 +1,21 @@
+<div class="text-xs-right m-b-1">
+  {{#link-to "neuroner.new-rssfilter" class="btn btn-primary"}}<i class="fa fa-plus"></i> New Filter{{/link-to}}
+</div>
+{{#if model}}
+  <h4>Your Filters</h4>
+  <div class="list-group">
+    {{#each model as |item|}}
+      {{#if item.id}}
+        {{#link-to "neuroner.rssfilter" item.id class="list-group-item"}}
+          {{#if item.email}}<span class="label label-info label-pill pull-xs-right">email</span>{{/if}}
+          {{item.fulltext}}
+        {{/link-to}}
+      {{/if}}
+    {{/each}}
+  </div>
+  {{infinity-loader infinityModel=model loadingText="Loading..." loadedText="The End"}}
+{{else}}
+  <p class="card-text alert alert-info">You have no filters for now.</p>
+{{/if}}
+
+{{outlet}}

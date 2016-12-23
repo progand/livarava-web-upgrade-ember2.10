@@ -1,0 +1,13 @@
+{{yield}}
+
+{{#if (and (not model.isSaving) model.isError)}}
+  <div class="alert alert-danger">
+    An error occured!
+  </div>
+{{/if}}
+
+{{#if model.isSaving}}
+  <div class="alert alert-info">
+    <i class="fa fa-spinner fa-spin"></i> Please, wait...
+  </div>
+{{/if}}

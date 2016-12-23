@@ -1,0 +1,16 @@
+<div class="m-b-1">
+    <i class="fa fa-eye" title="Status"></i>
+    <span class="label {{unless model.online 'label-danger' 'label-success'}}">{{getStatus}}</span>
+</div>
+<div class="m-b-1">
+    <i class="fa fa-clock-o" title="Registrations"></i>
+    <span class="text-muted">{{moment-from-now model.created}}</span>
+</div>
+<div class="m-b-1">
+    <i class="fa fa-language" title="Language"></i>
+    <span class="text-muted">{{getLanguage}}</span>
+</div>
+<div class="m-b-1">
+    <i class="fa fa-link" title="Neuron count"></i>
+    <span class="text-muted">{{model.neuron_count}}</span>
+</div>

@@ -1,0 +1,92 @@
+@import "infinite-scroll";
+@import "profile-feed";
+@import "loaders";
+@import 'ember-power-select/themes/bootstrap';
+@import "ember-power-select";
+@import "autocomplete";
+@import "bottom-nav";
+@import "article-preview";
+
+.display-none-important,
+.hidden {
+  display: none!important;
+}
+.feed-item-image {
+  width: 60px;
+  height: 60px;
+}
+.embed-responsive-video-16by9 {
+  padding-bottom: 57%;
+}
+@mixin right-panel-position {
+  top: 54px;
+  right: 0;
+  z-index: 1;
+}
+.right-panel {
+  @include right-panel-position;
+  position: fixed;
+  bottom: 0;
+  width: 300px;
+  max-width: 100%;
+  transition: transform 0.3s ease;
+  transform: translateX(300px);
+}
+.right-panel--visible {
+  transform: translateX(0);
+}
+.right-panel--toggle-button {
+  @include right-panel-position;
+  position: fixed;
+}
+.comment-form .block-comment,
+.media .block-comment {
+  margin-left: 70px;
+}
+.comment-form,
+.neuron-comments {
+  margin-bottom: 20px;
+}
+.btn-show-advertisement {
+  position: absolute;
+  right: 0;
+}
+.container {
+  position: relative;
+}
+.input-filter-neuron {
+  max-width: 400px;
+}
+.edit-post-link a,
+.edit-post-link a:hover,
+.edit-post-link a:visited {
+  color: #FFF;
+  text-decoration: none;
+}
+.icon-event {
+  width: 25px;
+  margin-right: 10px;
+  text-align: center;
+}
+.icon-event-date {
+  margin-top: 18px;
+}
+.block-event-date {
+  margin-left: 35px;
+  display: block;
+}
+.icon-24 {
+  height: 24px;
+  width: 24px;
+  background-size: cover;
+  display: inline-block;
+  vertical-align: bottom;
+}
+.navbar-brand > img {
+  margin-top: 5px;
+}
+.dropdown-item-icon {
+  min-width: 1.1em;
+  display: inline-block;
+  text-align: center;
+}

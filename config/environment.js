@@ -1,10 +1,10 @@
 /* jshint node: true */
-
+// eslint-disable-next-line no-undef
 module.exports = function(environment) {
   var ENV = {
     modulePrefix: 'livarava-neuroner-mockups',
     environment: environment,
-    rootURL: '/',
+    rootURL: '/ui',
     locationType: 'auto',
     EmberENV: {
       FEATURES: {
@@ -29,6 +29,30 @@ module.exports = function(environment) {
     // ENV.APP.LOG_TRANSITIONS = true;
     // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
     // ENV.APP.LOG_VIEW_LOOKUPS = true;
+    ENV.rootURL = '/ui/';
+    ENV['ember-cli-mirage'] = {
+      enabled: true
+    };
+    ENV['api'] = {
+      host: "https://dev.livarava.com",
+      key: "Q0eQWbEUJRerVFqEURGxz8pO8F2yc2sMO-Z1qUu0"
+    };
+  }
+
+  if (environment === 'local') {
+    // ENV.APP.LOG_RESOLVER = true;
+    // ENV.APP.LOG_ACTIVE_GENERATION = true;
+    // ENV.APP.LOG_TRANSITIONS = true;
+    // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
+    // ENV.APP.LOG_VIEW_LOOKUPS = true;
+    ENV.rootURL = '/ui/';
+    ENV['ember-cli-mirage'] = {
+      enabled: false
+    };
+    ENV['api'] = {
+      host: "http://local.livarava.com",
+      key: "test"
+    };
   }
 
   if (environment === 'test') {
@@ -43,7 +67,14 @@ module.exports = function(environment) {
   }
 
   if (environment === 'production') {
-
+    ENV.rootURL = '/ui/';
+    //ENV.locationType = 'hash';
+    ENV['ember-cli-mirage'] = {
+      enabled: false
+    };
+    ENV.googleAnalytics = {
+      webPropertyId: 'UA-3675054-22'
+    };
   }
 
   return ENV;

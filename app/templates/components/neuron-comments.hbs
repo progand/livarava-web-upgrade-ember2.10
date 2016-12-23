@@ -1,0 +1,38 @@
+<form class="comment-form" {{action 'addCommentNeuron' on='submit'}}>
+    <div class="pull-left">
+        <img class="media-object" src="https://www.livarava.com/static/livarava/img/neurons/person.png" alt="anchor" width="60">
+    </div>
+    <div class="block-comment">
+        <fieldset class="form-group ">
+          {{textarea class="form-control" required="required" placeholder="Live comment..." autofocus="true" value=commentsData}}
+        </fieldset>
+        <div class="user-comment-buttons">
+            <input type="submit" class="btn btn-sm {{unless newCommentsNeuron 'disabled'}}" value="Add comment"/>
+        </div>
+    </div>
+</form>
+
+{{#if loading}}
+
+  <div class="text-center text-primary">
+    <i class="fa fa-spin fa-spinner fa-3x fa-fw"></i>
+    <span class="sr-only">Loading...</span>
+  </div>
+
+{{else}}
+
+  {{#if comments.length}}
+    {{#each comments as |comment|}}
+      {{neuron-list-comments comment=comment}}
+    {{/each}}
+    <nav>
+      {{#pagination-pager count=comments.meta.total_pages current=page change='pageChanged' pager=true pagerPrevious='<span class="fa fa-backward"></span>' pagerNext='<span class="fa fa-forward"></span>' pagerFirst='<span class="fa fa-step-backward"></span>' pagerLast='<span class="fa fa-step-forward"></span>'
+          }}
+        Page {{page}} of {{comments.meta.total_pages}}
+      {{/pagination-pager}}
+    </nav>
+  {{else}}
+    <div class="alert alert-info">Nothing was found</div>
+  {{/if}}
+
+{{/if}}

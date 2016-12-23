@@ -1,0 +1,7 @@
+{{#if expanded}}
+  {{{model.text}}}
+{{else}}
+  {{{truncate model.text length=300 striptags=true}}}
+{{/if}}
+
+<div class="m-t-2 clearfix"><button {{action "toggleText"}} class="btn btn-secondary">{{#if expanded}}Less{{else}}Read more{{/if}}</button></div>

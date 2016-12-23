@@ -1,0 +1,62 @@
+<div class="feed-item image-with-white-border-and-shadow">
+    <div class="feed-item-header">
+        <div class="feed-item-author-image">
+            <img src="{{item.author.image}}"/>
+        </div>
+        <div class="feed-item-info">
+            <div class="">
+                <b>{{#link-to "neuron" item.author.id}}{{item.author.title}}{{/link-to}}</b>
+                <span class="text-muted">created new akson for neuron</span>
+            </div>
+            <div class="feed-item-info-data">
+                <a class="datetime" href="#">{{moment-from-now item.axon.created}}</a>
+                · <span>View</span>
+            </div>
+        </div>
+    </div>
+    <div class="axon-preview row">
+        <div class="col-sm-6">
+            <div class="axon-preview-neuron clearfix">
+              {{#link-to "neuron" item.liva.id class="axon-preview-neuron-link"}}
+                  <span class="axon-preview-livarava-icon image-with-white-border-and-shadow axon-preview-livarava-icon-liva">Liva</span>
+                  <div class="text-center axon-preview-neuron-image-wrapper">
+                    <span class="cover-image cover-image-round-200 image-with-white-border-and-shadow"
+                          style="background-image: url({{getLivaImage}})" title=""></span>
+                  </div>
+                  <p class="axon-preview-neuron-header feed-item-stub-text">
+                      <span class="feed-item-stub-text">{{item.liva.header}}</span>
+                  </p>
+              {{/link-to}}
+              {{#if item.liva.summary}}
+                  <div class="axon-preview-neuron-summary">{{item.liva.summary}}</div>
+              {{else}}
+                  <div class="axon-preview-neuron-summary">
+                      <span class="feed-item-stub-text">Summary is missing.</span>
+                  </div>
+              {{/if}}
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="axon-preview-neuron clearfix">
+              {{#link-to "neuron" item.rava.id class="axon-preview-neuron-link"}}
+                  <span class="axon-preview-livarava-icon image-with-white-border-and-shadow axon-preview-livarava-icon-liva">Rava</span>
+
+                  <div class="text-center axon-preview-neuron-image-wrapper">
+                    <span class="cover-image cover-image-round-200 image-with-white-border-and-shadow"
+                          style="background-image: url({{getRavaImage}})" title=""></span>
+                  </div>
+                  <p class="axon-preview-neuron-header">
+                      <span class="feed-item-stub-text">{{item.rava.header}}</span>
+                  </p>
+              {{/link-to}}
+              {{#if item.rava.summary}}
+                  <div class="axon-preview-neuron-summary">{{item.rava.summary}}</div>
+              {{else}}
+                  <div class="axon-preview-neuron-summary">
+                      <span class="feed-item-stub-text">Summary is missing.</span>
+                  </div>
+              {{/if}}
+            </div>
+        </div>
+    </div>
+</div>

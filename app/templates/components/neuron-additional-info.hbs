@@ -1,0 +1,59 @@
+<div class="clearfix">
+    <div class="btn-group pull-xs-right">
+      {{#if hasSpecificInfo}}
+          <button class="btn  {{unless showingInfo 'btn-info-outline' 'btn-info' }}"
+                  disabled={{showingInfo}} {{action "show" "info"}}>
+              <i class="fa fa-folder-open"></i>
+              <span class="hidden-xs-down">Overview</span>
+          </button>
+      {{/if}}
+        <button class="btn {{unless showingComments 'btn-info-outline' 'btn-info'}}"
+                disabled={{showingComments}} {{action "show" "comments"}}>
+            <i class="fa fa-comment"></i>
+            <span class="hidden-xs-down">Comments <span class="label label-default">{{model.commentsCount}}</span></span>
+        </button>
+        <button class="btn {{unless showingConnections 'btn-info-outline' 'btn-info'}}"
+                disabled={{showingConnections}} {{action "show" "connections"}}>
+            <i class="fa fa-link"></i>
+            <span class="hidden-xs-down">Connections</span>
+        </button>
+
+    </div>
+</div>
+
+<hr>
+{{#if showingConnections class="neuron-additional-info-animation"}}
+  {{#neuron-connections model=model store=store}}
+      <h4>Axons - connected neurons</h4>
+  {{/neuron-connections}}
+{{else if showingComments}}
+  {{neuron-comments model=model store=store}}
+{{else if showingInfo}}
+  {{#if isRSS}}
+    {{neuron-rss model=model}}
+  {{else if isPost}}
+    {{neuron-post model=model}}
+  {{else if isJob}}
+    {{neuron-job model=model}}
+  {{else if isEvent}}
+    {{neuron-event model=model}}
+  {{else if isProject}}
+    {{neuron-project model=model}}
+  {{else if isProduct}}
+    {{neuron-product model=model}}
+  {{else if isPerson}}
+    {{neuron-person model=model}}
+  {{/if}}
+{{/if}}
+
+
+{{#right-panel}}
+  {{#if showingConnections}}
+    {{neuron-connections-menu model=model}}
+  {{else}}
+    {{neuron-specific-menu}}
+  {{/if}}
+{{/right-panel}}
+
+
+{{yield}}

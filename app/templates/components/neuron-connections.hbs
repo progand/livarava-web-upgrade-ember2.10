@@ -1,0 +1,77 @@
+{{yield}}
+<form class="form-inline m-b-1" {{action "submit" on="submit"}}>
+  <fieldset class="form-group">
+    <label>Show:</label>
+    <div class="dropdown form-control-static">
+      <button class="btn btn-info dropdown-toggle text-capitalize" type="button" id="neuron-connections-type-filter-for-{{model.id}}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        {{#if type}}{{type}}{{else}}All{{/if}}
+      </button>
+      <div class="dropdown-menu" aria-labelledby="neuron-connections-type-filter-for-{{model.id}}">
+        {{#if type}}
+          <button class="dropdown-item" type="button" {{action "setProperty" "type" null}}>All</button>
+        {{/if}}
+        {{#each types as |typeItem|}}
+          <button class="dropdown-item text-capitalize" type="button" {{action "setProperty" "type" typeItem}}>{{typeItem}}</button>
+        {{/each}}
+      </div>
+    </div>
+  </fieldset>
+
+  <fieldset class="form-group">
+    <label>Display:</label>
+    <div class="dropdown form-control-static">
+      <button class="btn btn-info dropdown-toggle text-capitalize" type="button" id="neuron-connections-type-filter-for-{{model.id}}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        {{#if display}}{{display}}{{else}}All{{/if}}
+      </button>
+      <div class="dropdown-menu" aria-labelledby="neuron-connections-type-filter-for-{{model.id}}">
+        {{#if display}}
+          <button class="dropdown-item" type="button" {{action "setProperty" "display" null}}>All</button>
+        {{/if}}
+        {{#unless (eq display "public")}}
+          <button class="dropdown-item" type="button" {{action "setProperty" "display" "public"}}>Public</button>
+        {{/unless}}
+        {{#unless (eq display "private")}}
+          <button class="dropdown-item" type="button" {{action "setProperty" "display" "private"}}>Private</button>
+        {{/unless}}
+      </div>
+    </div>
+  </fieldset>
+
+  <fieldset class="form-group">
+    <div class="input-group">
+      {{input type="text" class="form-control" placeholder="Filter by title" value=title}}
+      <span class="input-group-btn">
+        <button type="submit" class="btn btn-secondary">Apply</button>
+      </span>
+    </div>
+  </fieldset>
+
+  <fieldset class="form-group">
+    <button type="button" class="btn btn-secondary" {{action "reset"}}><i class="fa fa-times"></i> Clear</button>
+  </fieldset>
+</form>
+
+{{#if loading}}
+
+  <div class="text-center text-primary">
+    <i class="fa fa-spin fa-spinner fa-3x fa-fw"></i>
+    <span class="sr-only">Loading...</span>
+  </div>
+
+{{else}}
+
+  {{#if axons.length}}
+    {{#each axons as |neuron|}}
+      {{neuron-list-item neuron=neuron}}
+    {{/each}}
+    <nav>
+      {{#pagination-pager count=axons.meta.total_pages current=page change='pageChanged' pager=true pagerPrevious='<span class="fa fa-backward"></span>' pagerNext='<span class="fa fa-forward"></span>' pagerFirst='<span class="fa fa-step-backward"></span>' pagerLast='<span class="fa fa-step-forward"></span>'
+          }}
+        Page {{page}} of {{axons.meta.total_pages}}
+      {{/pagination-pager}}
+    </nav>
+  {{else}}
+    <div class="alert alert-info">Nothing was found</div>
+  {{/if}}
+
+{{/if}}

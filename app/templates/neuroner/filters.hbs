@@ -1,0 +1,48 @@
+<ol class="breadcrumb">
+  <li>{{#link-to "index"}}<i class="fa fa-home"></i> home{{/link-to}}</li>
+  <li>{{#link-to "neuroner"}}neuroner{{/link-to}}</li>
+  <li class="active">filters</li>
+</ol>
+
+<h2>Filters</h2>
+
+<div class="text-xs-right m-b-1">
+  {{#link-to "neuroner.filter-form" class="btn btn-primary" }}<i class="fa fa-plus"></i> New filter{{/link-to}}
+</div>
+
+{{#if model.length}}
+  <div class="alert alert-success">Nearby <strong>{{model.meta.total_results}} filters</strong> was found</div>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Notification</th>
+        <th class="hidden-xs-down">Destination</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each model as |item|}}
+        <tr>
+          <td>{{#link-to "neuroner.edit-filter" item.id }}{{item.label}}{{/link-to}}</td>
+          {{#if (gt item.notifications.length 0) }}
+            <td>{{item.notifications.0.kind}}</td>
+            <td class="hidden-xs-down">{{item.notifications.0.destination}}</td>
+          {{else}}
+            <td>{{item.notifications.kind}}</td>
+            <td class="hidden-xs-down">{{item.notifications.destination}}</td>
+          {{/if}}
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+
+	<nav>
+    {{#pagination-pager count=model.meta.total_pages current=page pager=true pagerPrevious='<span class="fa fa-backward"></span>' pagerNext='<span class="fa fa-forward"></span>' pagerFirst='<span class="fa fa-step-backward"></span>'
+        pagerLast='<span class="fa fa-step-forward"></span>' }}
+      Page {{page}} of {{model.meta.total_pages}}
+    {{/pagination-pager}}
+  </nav>
+{{else}}
+  <div class="alert alert-info">No filters was found</div>
+{{/if}}
+{{outlet}}

@@ -1,0 +1,8 @@
+{{outlet}}
+<ol class="breadcrumb">
+  <li>{{#link-to "index"}}<i class="fa fa-home"></i> home{{/link-to}}</li>
+  <li>{{#link-to "neuroner"}}neuroner{{/link-to}}</li>
+  <li>{{#link-to "neuroner.filters"}}filters{{/link-to}}</li>
+  <li class="active">{{model.id}}</li>
+</ol>
+{{filter-form model=model delete=(route-action "delete") save=(route-action "save")}}

@@ -1,0 +1,23 @@
+.ember-basic-dropdown-content {
+  z-index: 9999;
+}
+
+.navbar {
+  .ember-power-select-search-input{
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #55595c;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: .25rem
+  }
+  .ember-power-select-trigger{
+    padding: 0;
+    border: none;
+  }
+  .ember-power-select-trigger:after{
+    content: none;
+  }
+}

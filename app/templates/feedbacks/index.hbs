@@ -1,0 +1,36 @@
+<h2>My feedbacks</h2> {{outlet}}
+
+<div class="text-xs-right m-b-1">
+  {{#link-to "feedbacks.new" class="btn btn-primary" }}<i class="fa fa-plus"></i> Feedback{{/link-to}}
+</div>
+
+{{#if model.length}}
+  <div class="alert alert-success">Nearby <strong>{{model.meta.total_results}} feedbacks</strong> was found</div>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>When</th>
+        <th>Subject</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each model as |item|}}
+        <tr>
+          <td>
+            {{moment-from-now item.created}}
+          </td>
+          <td>{{get subjects item.subject}}</td>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+
+  <nav>
+    {{#pagination-pager count=model.meta.total_pages current=page pager=true pagerPrevious='<span class="fa fa-backward"></span>' pagerNext='<span class="fa fa-forward"></span>' pagerFirst='<span class="fa fa-step-backward"></span>' pagerLast='<span class="fa fa-step-forward"></span>'
+        }}
+      Page {{page}} of {{model.meta.total_pages}}
+    {{/pagination-pager}}
+  </nav>
+{{else}}
+  <div class="alert alert-info">You have not any feedback yet:)</div>
+{{/if}}

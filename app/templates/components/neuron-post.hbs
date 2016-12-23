@@ -1,0 +1,13 @@
+<div class="m-b-1 clearfix">
+    <a href="/post/edit/{{model.id}}" class="btn btn-success-outline edit-post-link pull-right">Edit
+        description</a>
+</div>
+
+{{#if expanded}}
+  {{{model.text}}}
+{{else}}
+  {{{truncate model.text length=300 striptags=true}}}
+{{/if}}
+
+<div class="m-t-2 clearfix"><button {{action "toggleText"}} class="btn btn-secondary">{{#if expanded}}Less{{else}}Read more{{/if}}</button></div>
+

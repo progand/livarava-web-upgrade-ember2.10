@@ -1,0 +1,42 @@
+<div class="media">
+  <div class="media-left">
+    {{#if hasId}}
+      {{#link-to route neuron.id}}
+        <img class="media-object feed-item-image" src="{{neuron.image}}" alt="{{neuron.header}}" width="60">
+      {{/link-to}}
+    {{else}}
+      <img class="media-object feed-item-image" src="{{neuron.image}}" alt="{{neuron.header}}" width="60">
+    {{/if}}
+
+  </div>
+
+  <div class="media-body">
+    {{#if hasId}}
+      <h5 class="media-heading">
+            {{#link-to route neuron.id}}{{neuron.header}}{{/link-to}}
+          </h5>
+    {{else}}
+      {{#if isAudio}}
+        <audio src= {{neuron.url}} type="audio/mpeg" controls></audio>
+      {{else}}
+        {{content-editable value=neuron.title tagName="h5" class="media-heading" placeholder="Write title here..." type="text" allowNewlines=false }}
+      {{/if}}
+    {{/if}}
+    {{#if neuron.text}}
+      <div>{{truncate neuron.text}}</div>
+    {{/if}}
+    <ul class="list-inline">
+      <li class="list-inline-item" title="{{neuron.display}}">
+        {{#if (eq neuron.display "public")}}
+          <i class="fa fa-globe"></i>
+        {{else if (eq neuron.display "private")}}
+          <i class="fa fa-lock"></i>
+        {{else}}
+          <i class="fa fa-question"></i>
+        {{/if}}
+      </li>
+      <li class="list-inline-item"><span class="text-muted">Added:</span> {{moment-from-now neuron.created}}</li>
+      <li class="list-inline-item"><span class="label label-default">{{neuron.type}}</span></li>
+    </ul>
+  </div>
+</div>

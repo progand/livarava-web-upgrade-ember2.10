@@ -1,0 +1,11 @@
+.article-preview {
+  overflow: hidden;
+  border: 2px solid #5cb85c;
+  border-radius: 1em;
+  background-color: rgb(242, 251, 243);
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+}

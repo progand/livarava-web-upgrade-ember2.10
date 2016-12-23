@@ -1,0 +1,139 @@
+{{content-editable value=model.header tagName="h1" placeholder="Input title here..." type="text" allowNewlines=false }}
+
+<ul class="list-inline">
+  <li class="list-inline-item" title="{{model.display}}">
+    {{#if (eq model.display "public")}}
+      <i class="fa fa-globe"></i>
+    {{else if (eq model.display "private")}}
+      <i class="fa fa-lock"></i>
+    {{else}}
+      <i class="fa fa-question"></i>
+    {{/if}}
+    <span class="text-muted">
+      {{model.display}}
+    </span>
+  </li>
+  {{#if model.stats}}
+
+    {{#if model.stats.users}}
+        <li class="list-inline-item">
+            <i class="fa fa-user"></i> <span class="label label-info">{{model.stats.users}}</span>
+        </li>
+    {{/if}}
+    {{#if model.stats.axons}}
+        <li class="list-inline-item">
+            <i class="fa fa-link"></i> <span class="label label-primary">{{model.stats.axons}}</span>
+        </li>
+    {{/if}}
+    {{#if model.stats.views}}
+        <li class="list-inline-item">
+            <i class="fa fa-eye"></i> <span class="label label-success">{{model.stats.views}}</span>
+        </li>
+    {{/if}}
+
+  {{else}}
+    {{#if model.subscriberCount}}
+        <li class="list-inline-item">
+            <i class="fa fa-user"></i> <span class="label label-info">{{model.subscriberCount}}</span>
+        </li>
+    {{/if}}
+    {{#if model.axonCount}}
+        <li class="list-inline-item">
+            <i class="fa fa-link"></i> <span class="label label-primary">{{model.axonCount}}</span>
+        </li>
+    {{/if}}
+    {{#if model.views}}
+        <li class="list-inline-item">
+            <i class="fa fa-eye"></i> <span class="label label-success">{{model.views}}</span>
+        </li>
+    {{/if}}
+
+  {{/if}}
+
+  {{#if model.created}}
+      <li class="list-inline-item">
+          <i class="fa fa-calendar-minus-o"></i>
+        <span class="text-muted">
+          {{moment-from-now model.created}}
+        </span>
+      </li>
+  {{/if}}
+  {{#if model.type}}
+      <li class="list-inline-item">
+        <span class="label label-default">
+          {{model.type}}
+        </span>
+      </li>
+  {{/if}}
+</ul>
+
+{{#if showLink}}
+    <div class="clearfix m-b-2">
+      {{#if isVideo}}
+          <div class="embed-responsive embed-responsive-16by9 embed-responsive-video-16by9">
+              <iframe class="embed-responsive-item" src="{{videoURL}}" frameborder="0" allowfullscreen></iframe>
+          </div>
+      {{else if model.mainImage}}
+          <a href="{{model.mainImage}}" target="_blank">
+              <img src="{{model.mainImage}}" alt="{{model.mainImage}}" class="img-fluid"/>
+          </a>
+      {{else if isEmail}}
+          <div class="clearfix m-b-2">
+              <a href="mailto:{{model.title}}" class=""><i class="fa fa-mail-forward"></i> {{model.title}}</a>
+          </div>
+      {{else if isPhone}}
+          <div class="clearfix m-b-2">
+              <a href="tel:{{model.title}}" class=""><i class="fa fa-phone"></i> {{model.title}}</a>
+          </div>
+      {{else if isLink}}
+      {{else}}
+          <a href="{{model.url}}" target="_blank" class="btn btn-link"><i class="fa fa-external-link-square"></i> Go to
+              original website...</a>
+      {{/if}}
+    </div>
+{{/if}}
+
+
+
+<ul class="nav nav-tabs">
+    <li class="nav-item">
+        <a class="nav-link {{if showingDescription 'active'}}" href="" {{action 'showDescription' true}}>
+            <i class="fa fa-align-left"></i> Description
+        </a>
+    </li>
+  {{#if showLink}}
+      <li class="nav-item">
+          <a class="nav-link  {{unless showingDescription 'active'}}" href="" {{action 'showDescription' false}}>
+              <i class="fa fa-external-link"></i> Source
+          </a>
+      </li>
+  {{/if}}
+</ul>
+
+<div class="m-a-1 text-muted">
+  {{#if showingDescription}}
+    {{content-editable value=model.summary  placeholder="Edit description..." type="text"}}
+  {{else}}
+    {{#if showLink}}
+      {{#if isEmail}}
+          <div class="clearfix m-b-2">
+              <a href="mailto:{{model.title}}" class=""><i class="fa fa-mail-forward"></i> {{model.title}}</a>
+          </div>
+      {{else if isPhone}}
+          <div class="clearfix m-b-2">
+              <a href="tel:{{model.title}}" class=""><i class="fa fa-phone"></i> {{model.title}}</a>
+          </div>
+      {{else if isLink}}
+          <a href="{{gotoURL}}" class="text-success" target="_blank">
+            {{model.title}}
+          </a>
+      {{else}}
+          <a href="{{gotoURL}}" class="text-success" target="_blank">
+            {{model.url}}
+          </a>
+      {{/if}}
+    {{/if}}
+  {{/if}}
+</div>
+
+{{yield}}

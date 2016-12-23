@@ -1,0 +1,8 @@
+{{outlet}}
+<ol class="breadcrumb">
+  <li>{{#link-to "index"}}<i class="fa fa-home"></i> home{{/link-to}}</li>
+  <li>{{#link-to "neuroner"}}neuroner{{/link-to}}</li>
+  <li>{{#link-to "neuroner.feeds"}}feeds{{/link-to}}</li>
+  <li class="active">new</li>
+</ol>
+{{feed-form model=model save=(route-action "save") store=store}}

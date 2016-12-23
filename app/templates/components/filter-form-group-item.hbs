@@ -1,0 +1,21 @@
+{{yield}}
+<hr>
+<fieldset class="form-group">
+	<div class="btn-group" role="group" aria-label="Basic example">
+		<button type="button" class="btn {{if group.all "btn-success" " btn-secondary-outline"}}" {{action "setAll" true}}>All</button>
+		<button type="button" class="btn {{unless group.all "btn-success" " btn-secondary-outline"}}" {{action "setAll" false}}>Any</button>
+	</div>
+</fieldset>
+
+<div class="alert alert-info">
+	Article has to pass
+	<strong>{{#if group.all}} all {{else}} any of the {{/if}}</strong> following rules:
+</div>
+
+{{#each group.rules as |item|}}
+	{{filter-list-item deleteRule="deleteRule" rule=item}}
+{{/each}}
+
+<div class="form-group">
+	<button class="btn btn-primary-outline" {{action 'addRule'}}><i class="fa fa-plus"></i> Add</button>
+</div>

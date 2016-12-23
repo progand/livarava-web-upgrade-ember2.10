@@ -1,0 +1,22 @@
+<h1>What are you looking for?</h1>
+
+{{#power-select options=userActions matcher=userActionsMatcher searchField="title" onchange=(action 'performTransition') as |transition|}}
+  {{transition.title}}
+{{/power-select}}
+
+<div class="list-group hidden m-b-30">
+  {{#link-to "index" class="list-group-item" }}<i class="fa fa-home"></i> Home{{/link-to}}
+  {{#link-to "tasks" class="list-group-item" }}<i class="fa fa-tasks"></i> Tasks{{/link-to}}
+  {{#if model.rights.neuroner}}
+    {{#link-to "neuroner" class="list-group-item" }}<i class="fa fa-rss"></i> Neuroner{{/link-to}}
+  {{/if}}
+  {{#if model.rights.invoices}}
+    {{#link-to "invoice" class="list-group-item" }}<i class="fa fa-money"></i> Invoice{{/link-to}}
+  {{/if}}
+</div>
+
+<div class="row m-t-3">
+  <div class="col-xs-12">
+    {{task-widget store=store userId=model.id}}
+  </div>
+</div>

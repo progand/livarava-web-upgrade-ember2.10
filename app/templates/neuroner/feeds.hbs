@@ -1,0 +1,39 @@
+<ol class="breadcrumb">
+  <li>{{#link-to "index"}}<i class="fa fa-home"></i> home{{/link-to}}</li>
+  <li>{{#link-to "neuroner"}}neuroner{{/link-to}}</li>
+  <li class="active">feeds</li>
+</ol>
+
+<h2>Feeds</h2>
+
+<div class="text-xs-right m-b-1">
+  {{#link-to "neuroner.feed-form" class="btn btn-primary" }}<i class="fa fa-plus"></i> New feed{{/link-to}}
+</div>
+
+{{#if model.length}}
+  <div class="alert alert-success">Nearby <strong>{{model.meta.total_results}} feeds</strong> was found</div>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>URL</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each model as |item|}}
+        <tr>
+          <td>{{#link-to "neuroner.feed-edit" item.id }}{{item.url}}{{/link-to}}</td>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+
+	<nav>
+    {{#pagination-pager count=model.meta.total_pages current=page pager=true pagerPrevious='<span class="fa fa-backward"></span>' pagerNext='<span class="fa fa-forward"></span>' pagerFirst='<span class="fa fa-step-backward"></span>'
+        pagerLast='<span class="fa fa-step-forward"></span>' }}
+      Page {{page}} of {{model.meta.total_pages}}
+    {{/pagination-pager}}
+  </nav>
+{{else}}
+  <div class="alert alert-info">No feeds was found</div>
+{{/if}}
+{{outlet}}

@@ -1,0 +1,57 @@
+<nav class="navbar navbar-full navbar-dark bg-primary m-b-3">
+  <div class="container">
+    {{#link-to "index" class="navbar-brand" }}
+      <img src="/ui/img/logo_white_20x20.png" alt="LivaRava" />
+    {{/link-to}}
+
+    {{#if model.isLoaded}}
+      <ul class="nav navbar-nav pull-right m-l-1">
+        <li class="nav-item">
+          <a class="nav-link disabled" title="Notifications"><i class="fa fa-bell"></i></a>
+        </li>
+        <li class="nav-item dropdown">
+          <a title="{{model.fullname}}" class="nav-link dropdown-toggle" id="header-user-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="">
+            {{#if model.image}}
+            <span style="background-image: url({{model.image}});" class="icon-24"></span>
+            {{model.fullname}}
+            {{else}}
+            <i class="fa fa-user"></i>
+            {{/if}}
+          </a>
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="header-user-dropdown">
+            {{#link-to "tasks" class="dropdown-item" }}<span class="dropdown-item-icon"><i class="fa fa-tasks"></i></span> Tasks{{/link-to}}
+            {{#if model.rights.invoices}}
+              {{#link-to "invoice" class="dropdown-item" }}<span class="dropdown-item-icon"><i class="fa fa-money"></i></span> Invoice{{/link-to}}
+            {{/if}}
+            {{#if model.rights.neuroner}}
+              {{#link-to "neuroner.index" class="dropdown-item" }}<span class="dropdown-item-icon"><i class="fa fa-rss"></i></span> Neuroner{{/link-to}}
+            {{/if}}
+            {{#link-to "feedbacks" class="dropdown-item" }}<span class="dropdown-item-icon"><i class="fa fa-comments"></i></span> Feedbacks{{/link-to}}
+
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="/invest/">
+              <span class="dropdown-item-icon"><i class="fa fa-info"></i></span> Invest
+            </a>
+            <a class="dropdown-item" href="/profile/">
+              <span class="dropdown-item-icon"><i class="fa fa-user"></i></span> Profile
+            </a>
+            <a class="dropdown-item" href="/profile/billing/">
+              <span class="dropdown-item-icon"><i class="fa fa-usd"></i></span> Billing
+            </a>
+            <a class="dropdown-item" href="/profile/settings/">
+              <span class="dropdown-item-icon"><i class="fa fa-cog"></i></span> Settings
+            </a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item disabled" href="#">
+              <span class="dropdown-item-icon"><i class="fa fa-sign-out"></i></span> Logout
+            </a>
+          </div>
+        </li>
+      </ul>
+    {{/if}}
+
+    {{autocomplete-search-neuron onSelect=(route-action "openNeuron") }}
+  </div>
+</nav>
+
+{{yield}}

@@ -1,0 +1,25 @@
+{{yield}}
+<div class="col-xs-12 col-sm-6">
+  {{input type="url" class="form-control" value=rule.url required=true placeholder="web-site url"}}
+  <p class="text-muted m-b-1">
+    <small>Enter web-site url</small>
+  </p>
+</div>
+<div class="col-xs-12 col-sm-6">
+  {{input type="text" class="form-control" value=rule.selector required=true placeholder="selector to parse"}}
+  <p class="text-muted m-b-1">
+    <small>Enter CSS selector for main content</small>
+  </p>
+</div>
+<div class="col-xs-12 col-sm-10">
+  {{textarea class="form-control" value=rule.without placeholder="without selector" rows="3"}}
+  <p class="text-muted m-b-1">
+    <small>Enter CSS selector(s) to exlude from main content</small>
+  </p>
+</div>
+<div class="text-xs-right col-xs-12 col-sm-2">
+  <button class="btn btn-secondary btn-block" {{action 'remove' rule}} title="Remove">
+    <i class="fa fa-times" aria-hidden="true"></i>
+    <span class="hidden-sm-up">Remove</span>
+  </button>
+</div>

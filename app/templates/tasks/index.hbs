@@ -1,0 +1,153 @@
+<ol class="breadcrumb">
+  <li>
+    {{#link-to "index"}}<i class="fa fa-home"></i> home{{/link-to}}
+  </li>
+  <li class="active">tasks</li>
+</ol>
+
+<h2>Tasks</h2>
+
+<div class="m-b-1">
+  <div class="btn-group" role="group" aria-label="main filters">
+    <button {{action 'setFilter' 'author' (if (get this "filter[author]") null me.id)}} type="button" class="btn btn-secondary {{if (get this "filter[author]") "active"}}" aria-pressed="false" autocomplete="off">
+    {{#if (get this "filter[author]")}}
+      <i class="fa fa-check-square-o"></i>
+    {{else}}
+      <i class="fa fa-square-o"></i>
+    {{/if}}
+    I'm an author
+  </button>
+    <button {{action 'setFilter' 'executant' (if (get this "filter[executant]") null me.id)}} type="button" class="btn btn-secondary {{if (get this "filter[executant]") "active"}}" aria-pressed="false" autocomplete="off">
+    {{#if (get this "filter[executant]")}}
+      <i class="fa fa-check-square-o"></i>
+    {{else}}
+      <i class="fa fa-square-o"></i>
+    {{/if}}
+    I'm a executant
+  </button>
+  </div>
+  <div class="btn-group pull-right" role="group" aria-label="main filters">
+    <button {{action (toggle "isFiltersExpanded" this)}} class="btn btn-secondary"><i class="fa fa-bars"></i></button>
+    <a href="/task/create/" class="btn btn-primary " target="_blank"><i class="fa fa-plus"></i></a>
+  </div>
+</div>
+
+{{#if isFiltersExpanded}}
+  <div class="m-b-1">
+    <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+
+      <div class="btn-group" role="group">
+        <button id="task-grid-filters-type" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          {{#if (get this "filter[task_type]")}}
+            <span class="text-primary">
+              {{{get (get this 'icons.types') (get this "filter[task_type]")}}} {{get this "filter[task_type]"}}
+            </span>
+          {{else}}
+            type
+          {{/if}}
+        </button>
+        <div class="dropdown-menu" aria-labelledby="task-grid-filters-type">
+          <a {{action 'setFilter' 'task_type' null}} class="dropdown-item" href="#"><span class="dropdown-item-icon"><i class="fa fa-bars"></i></span> all</a>
+          {{#each-in icons.types as |type icon|}}
+            <a {{action 'setFilter' 'task_type' type}} class="dropdown-item text-primary" href="#"><span class="dropdown-item-icon">{{{icon}}}</span>{{type}}</a>
+          {{/each-in}}
+        </div>
+      </div>
+
+      <div class="btn-group" role="group">
+        <button id="task-grid-filters-status" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          {{#if (get this "filter[status]")}}
+            <span class="text-primary">
+              {{{get (get this 'icons.statuses') (get this "filter[status]")}}} {{get this "filter[status]"}}
+            </span>
+          {{else}}
+            status
+          {{/if}}
+        </button>
+        <div class="dropdown-menu" aria-labelledby="task-grid-filters-status">
+          <a {{action 'setFilter' 'status' null}} class="dropdown-item" href="#"><span class="dropdown-item-icon"><i class="fa fa-bars"></i></span> all</a>
+          {{#each-in icons.statuses as |status icon|}}
+            <a {{action 'setFilter' 'status' status}} class="dropdown-item text-primary" href="#"><span class="dropdown-item-icon">{{{icon}}}</span>{{status}}</a>
+          {{/each-in}}
+        </div>
+      </div>
+
+      <div class="btn-group" role="group">
+        <button id="task-grid-filters-status" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          {{#if (get this "filter[currency]")}}
+            <span class="text-primary">
+              {{{get (get this 'icons.currencies') (get this "filter[currency]")}}} {{get this "filter[currency]"}}
+            </span>
+          {{else}}
+            currency
+          {{/if}}
+        </button>
+        <div class="dropdown-menu" aria-labelledby="task-grid-filters-status">
+          <a {{action 'setFilter' 'currency' null}} class="dropdown-item" href="#"><span class="dropdown-item-icon"><i class="fa fa-bars"></i></span> ALL</a>
+          {{#each-in icons.currencies as |currency icon|}}
+            <a {{action 'setFilter' 'currency' currency}} class="dropdown-item text-primary" href="#"><span class="dropdown-item-icon">{{{icon}}}</span>{{currency}}</a>
+          {{/each-in}}
+        </div>
+      </div>
+
+    </div>
+  </div>
+{{/if}}
+
+{{#if model.length}}
+  <div class="alert alert-success m-b-1">Nearby <strong>{{model.meta.total_results}} tasks</strong> was found</div>
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Type</th>
+        <th class="text-xs-center">Status</th>
+        <th class="text-xs-right">Hours</th>
+        <th class="text-xs-right">Amount</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each model as |item|}}
+        <tr>
+          <td>
+            <a href="/task/{{item.id}}/" target="_blank">
+              {{item.title}}
+            </a>
+          </td>
+          <td class="text-xs-center" title="{{item.taskType}}">
+            {{#if (eq item.taskType "research")}}
+              <i class="fa fa-area-chart text-warning"></i>
+            {{else}}
+              <i class="fa fa-wrench text-primary"></i>
+            {{/if}}
+          </td>
+          <td class="text-xs-center" title="{{item.status}}">
+            {{#if (eq item.status "closed")}}
+              <i class="fa fa-check-square-o text-success"></i> {{else if (eq item.status "in_progress")}}
+              <i class="fa fa-clock-o text-warning"></i>
+            {{else}}
+              <i class="fa fa-square-o text-primary"></i>
+            {{/if}}
+          </td>
+          <td class="text-xs-right">
+            {{item.hours}}
+          </td>
+          <td class="text-xs-right text-nowrap">
+            <code>{{format-currency item.amount 2 " " " "}} {{item.currency}}</code>
+          </td>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+
+  <nav>
+    {{#pagination-pager count=model.meta.total_pages current=page pager=true pagerPrevious='<span class="fa fa-backward"></span>' pagerNext='<span class="fa fa-forward"></span>' pagerFirst='<span class="fa fa-step-backward"></span>' pagerLast='<span class="fa fa-step-forward"></span>'
+        }}
+      Page {{page}} of {{model.meta.total_pages}}
+    {{/pagination-pager}}
+  </nav>
+{{else}}
+  <div class="alert alert-info">No tasks was found</div>
+{{/if}}
+{{outlet}}

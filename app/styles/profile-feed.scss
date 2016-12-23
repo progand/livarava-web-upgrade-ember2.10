@@ -1,0 +1,279 @@
+.feed-item-author-image img {
+  width: 40px;
+  height: 40px;
+}
+
+.head-feed {
+  max-width: 600px;
+  margin: 0 auto;
+}
+.datetime {
+    color: #777;
+    font-size: 12px;
+}
+.feed-container {
+  min-height: 470px;
+}
+
+.feed-container ~ .alert {
+  text-align: center;
+}
+
+.feed-section {
+  text-align: left !important;
+}
+
+.feed-neuron-in-axon {
+  margin-top: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  font-size: 0.9em;
+  overflow: visible;
+}
+
+.feed-neuron-name {
+  margin-bottom: 10px;
+  font-size: 1.2em;
+}
+
+.feed-neuron-name-editable {
+  line-height: 1.5em;
+  margin-right: 0.3em;
+  display: inline;
+}
+
+.feed-neuron-name-editable textarea {
+  width: 99% !important;
+  box-sizing: border-box;
+}
+
+.feed-container > img {
+  padding-top: 230px;
+}
+
+.feed-item {
+  max-width: 600px;
+  border: 1px solid #ccc !important;
+  border-radius: 3px;
+  margin-bottom: 1.5em;
+  padding: 1em .9375rem 0 .9375rem;
+}
+
+.feed-item-complete {
+  border-bottom: 1px solid #ccc;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+  margin-bottom: 15px;
+}
+
+.feed-item-header {
+  clear: both;
+  overflow: auto;
+  min-height: 40px;
+  border-bottom: #eee 1px solid;
+}
+
+.feed-item-author-image {
+  float: left;
+  margin-right: 12px;
+}
+
+.feed-item-info {
+  margin-bottom: 1em;
+}
+
+.feed-item-info-data {
+  margin-top: 3px;
+  font-size: 12px;
+}
+
+.feed-item .axon-controls {
+  margin: 0;
+}
+
+.feed-item .axon-preview-neuron {
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+}
+
+.feed-item .cover-image {
+  width: 144px;
+  height: 144px;
+  border-radius: 74px;
+}
+
+.feed-item .axon-preview-neuron-summary {
+  max-height: 5.5em;
+  overflow: hidden;
+  font-size: 0.9em;
+}
+
+.feed-item .axon-preview-livarava-icon {
+  height: 40px;
+  border-radius: 20px;
+  width: 40px;
+  font-weight: 100;
+  line-height: 36px;
+}
+
+.feed-item .axon-controls a,
+.feed-item .axon-controls .btn {
+  margin: 0;
+}
+
+/* Feed stub item */
+.feed-item-stub span {
+  background-color: #eee;
+}
+
+.feed-item-stub .feed-item-neuron-image {
+  border-radius: 60px;
+}
+
+.feed-item-stub .feed-item-stub-text {
+  width: 70%;
+  display: inline-block;
+  height: 13px;
+}
+
+.feed-item-stub .feed-item-info-data .feed-item-stub-text {
+  width: 25%;
+  height: 11px;
+}
+
+@media (min-width: 768px) {
+  .feed-container,
+  .feed-container ~ .alert,
+  .panel-user-actions,
+  .showmore-container {
+    max-width: 496px;
+  }
+
+  .feed-neuron-in-axon {
+    position: relative;
+  }
+
+  .feed-neuron-in-axon .feed-item-neuron-image {
+    position: absolute;
+    width: 120px;
+    height: 120px;
+  }
+
+  .feed-neuron-in-axon .feed-item-neuron-description {
+    margin: 0 0 0 133px;
+    min-height: 128px;
+  }
+
+  .feed-item-addon .comment-form {
+    margin: 10px 0;
+  }
+}
+
+#feed-load-more-button {
+  width: 100% !important;
+}
+
+.axon-preview-neuron {
+  position: relative;
+  margin-top: 75px;
+}
+
+.axon-preview-neuron-image-wrapper {
+  margin-bottom: 2em;
+}
+
+.axon-preview-image-shadow {
+  border: 2px #fff solid;
+  box-shadow: 1px 2px 4px 0px rgba(0, 0, 0, 0.2);
+}
+
+.axon-preview-livarava-icon {
+  background-color: #ff9700;
+  color: white;
+  font-weight: bold;
+  text-transform: lowercase;
+  height: 60px;
+  width: 60px;
+  text-align: center;
+  line-height: 58px;
+  border-radius: 30px;
+  display: block;
+}
+
+.axon-preview-neuron-header {
+  font-size: 16px;
+  white-space: nowrap;
+  overflow: hidden;
+  color: black;
+  margin: 0;
+}
+
+.axon-preview-neuron-header::first-letter {
+  text-transform: capitalize;
+}
+
+.axon-preview-neuron-link {
+  margin: 0 0 0.5em 0;
+}
+
+.axon-preview-neuron-link:hover {
+  text-decoration: none;
+}
+
+.axon-preview-neuron-summary {
+  color: #777;
+  margin-top: 7px;
+}
+
+.axon-preview-controls {
+  margin: 50px 0;
+}
+
+.axon-preview-controls button[data-action="internal-sharing-resolve"] {
+  color: white;
+  padding: 10px;
+  margin: 10px;
+}
+
+.axon-preview-controls .axon-preview-reject-button {
+  background: #ff4a43;
+}
+
+.axon-preview-controls .axon-preview-accept-button {
+  background: #82bb2c;
+}
+
+.axon-preview-controls .loading-animation {
+  margin: 15px 10px;
+}
+
+@media (min-width: 768px) {
+  .axon-preview-livarava-icon {
+    position: absolute;
+  }
+
+  .axon-preview > div:first-child .axon-preview-livarava-icon {
+    right: 0;
+  }
+}
+.axon-preview-neuron-image-wrapper {
+  margin-bottom: 2em;
+}
+.text-center {
+  text-align: center;
+}
+.feed-item .cover-image {
+  width: 144px;
+  height: 144px;
+  border-radius: 74px;
+}
+.image-with-white-border-and-shadow {
+  border: 2px #fff solid;
+  box-shadow: 1px 2px 4px 0px rgba(0, 0, 0, 0.2);
+}
+.cover-image {
+  display: inline-block;
+  background-size: cover;
+  background-position: 50%;
+  vertical-align: middle;
+}

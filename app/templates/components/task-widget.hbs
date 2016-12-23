@@ -1,0 +1,70 @@
+{{yield}}
+
+<div class="card">
+  <div class="card-header">
+    <ul class="nav nav-tabs card-header-tabs float-xs-left">
+      <li class="nav-item">
+        <a class="nav-link {{if (eq tab 0) 'active'}}" href="#" {{action "setTab" 0}} title="Created by me">Created</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link {{if (eq tab 1) 'active'}}" href="#" {{action "setTab" 1}} title="Tasks where I'm an executant">To Do</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link {{if (eq tab 2) 'active'}}" href="#" {{action "setTab" 2}} title="Latest open tasks">Latest</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link {{if (eq tab 3) 'active'}}" href="#" {{action "setTab" 3}} title="All tasks">All</a>
+      </li>
+      <li class="nav-item pull-sm-right">
+        {{#if loading}}
+          <a class="nav-link disabled text-primary" href="#">
+            <i class="fa fa-spin fa-refresh fa-fw"></i>
+            <span class="sr-only">loading tasks...</span>
+          </a>
+        {{else}}
+          <a class="nav-link" href="#" {{action "refresh"}}>
+            <i class="fa fa-refresh fa-fw"></i>
+            <span class="sr-only">refresh</span>
+          </a>
+        {{/if}}
+      </li>
+    </ul>
+  </div>
+
+  {{#if items.length}}
+    <div class="card-block">
+      {{#each items as |item|}}
+        <ul class="list-unstyled">
+          <li>
+            {{#if (eq item.status "closed")}}
+              <i class="fa fa-check-square-o text-success"></i> {{else if (eq item.status "in_progress")}}
+              <i class="fa fa-clock-o text-warning"></i>
+            {{else}}
+              <i class="fa fa-square-o text-primary"></i>
+            {{/if}}
+            <a href="/task/{{item.id}}/" target="_blank">
+              {{item.title}}
+            </a>
+
+            {{#if (eq item.status "closed")}}
+              <span class="text-muted">
+                <i class="fa fa-clock-o"></i>
+                {{moment-duration item.hours 'hours'}}
+              </span>
+            {{else}}
+              <span class="text-muted">
+                <i class="fa fa-calendar"></i>
+                {{moment-to-now item.due}}
+              </span>
+            {{/if}}
+            <span class="text-primary">
+              {{format-currency item.amount 0 " " " "}} {{item.currency}}
+            </span>
+
+          </li>
+        </ul>
+      {{/each}}
+    </div>
+  {{/if}}
+
+</div>
